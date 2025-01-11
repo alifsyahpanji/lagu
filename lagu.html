@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pengecekan Judul Lagu</title>
+  <style>
+    body {
+      background-color: #121212;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: #1e1e1e;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      text-align: center;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    input[type="text"] {
+      width: calc(100% - 22px);
+      padding: 10px;
+      margin-bottom: 10px;
+      border: none;
+      border-radius: 4px;
+      background-color: #2c2c2c;
+      color: #ffffff;
+    }
+
+    button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      background-color: #007bff;
+      color: #ffffff;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .message {
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 4px;
+    }
+
+    .message.success {
+      background-color: #28a745;
+      color: #ffffff;
+    }
+
+    .message.error {
+      background-color: #dc3545;
+      color: #ffffff;
+    }
+
+    .song-list {
+      margin-top: 20px;
+      text-align: left;
+      background-color: #2c2c2c;
+      padding: 10px;
+      border-radius: 4px;
+    }
+
+    .song-list h3 {
+      margin: 0 0 10px 0;
+      font-size: 18px;
+    }
+
+    .song-list ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .song-list li {
+      margin: 5px 0;
+      color: #dddddd;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Pengecekan Judul Lagu</h2>
+    <input type="text" id="songTitleInput" placeholder="Masukkan judul lagu">
+    <button onclick="checkSongTitle()">Cek Judul Lagu</button>
+    <div id="message" class="message" style="display: none;"></div>
+    <div class="song-list">
+      <h3>Daftar Judul Lagu yang Sudah Ada:</h3>
+      <ul id="existingTitlesList"></ul>
+    </div>
+  </div>
+
+  <script>
+    // Daftar judul lagu yang sudah ada
+    const existingTitles = ["Hilang Tanpa Kata", "Jejak yang Tertinggal", "Saat Kau Pergi", "Kenangan yang Membisu", "Sepi Tanpa Dirimu", "Hati yang Tersisa", "Janji yang Terlupakan", "Luka dalam Diam", "Hilang dalam Rindu", "Kenapa Harus Berakhir", "Harapan yang Hancur", "Terdiam dalam Hampa", "Tak Bisa Melupakanmu", "Cinta yang Menyakitkan", "Saat Kau Menjauh", "Rindu Tak Terbalas", "Kisah yang Hancur", "Kenangan yang Rapuh"];
+  
+    // Render daftar judul lagu ke dalam HTML
+    const existingTitlesList = document.getElementById("existingTitlesList");
+    existingTitles.forEach(title => {
+      const li = document.createElement("li");
+      li.textContent = title;
+      existingTitlesList.appendChild(li);
+    });
+  
+    function checkSongTitle() {
+      // Ambil nilai dari input
+      const input = document.getElementById("songTitleInput").value.trim().toLowerCase();
+      const messageDiv = document.getElementById("message");
+  
+      // Periksa apakah input kosong
+      if (!input) {
+        messageDiv.textContent = "Masukkan judul lagu terlebih dahulu.";
+        messageDiv.className = "message error";
+        messageDiv.style.display = "block";
+        return;
+      }
+  
+      // Konversi semua judul dalam daftar ke huruf kecil
+      const lowercaseTitles = existingTitles.map(title => title.toLowerCase());
+  
+      // Cek apakah judul lagu sudah ada
+      if (lowercaseTitles.includes(input)) {
+        messageDiv.textContent = "Judul lagu sudah ada, silahkan gunakan judul lagu lain.";
+        messageDiv.className = "message error";
+      } else {
+        messageDiv.textContent = "Judul lagu ini bisa digunakan.";
+        messageDiv.className = "message success";
+      }
+  
+      // Tampilkan pesan
+      messageDiv.style.display = "block";
+    }
+  </script>
+  
+</body>
+</html>
