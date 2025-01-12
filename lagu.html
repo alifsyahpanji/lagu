@@ -109,11 +109,12 @@
   
     // Render daftar judul lagu ke dalam HTML
     const existingTitlesList = document.getElementById("existingTitlesList");
-    existingTitles.forEach(title => {
+    existingTitles.forEach((title, index) => {
       const li = document.createElement("li");
-      li.textContent = title;
+      li.textContent = `${index + 1}. ${title}`;
       existingTitlesList.appendChild(li);
     });
+
   
     function checkSongTitle() {
       // Ambil nilai dari input
